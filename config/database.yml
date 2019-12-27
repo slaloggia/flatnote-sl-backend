@@ -1,7 +1,7 @@
 # PostgreSQL. Versions 9.3 and up are supported.
 #
 # Install the pg driver:
-#   gem install pg
+  # gem install pg
 # On macOS with Homebrew:
 #   gem install pg -- --with-pg-config=/usr/local/bin/pg_config
 # On macOS with MacPorts:
@@ -22,8 +22,9 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  <<: *default
-  database: flatnote_sl_backend_development
+    adapter: postgresql
+    database: flatnote_sl_backend_development
+    host: localhost  
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
