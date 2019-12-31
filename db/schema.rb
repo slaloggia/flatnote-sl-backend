@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_26_203850) do
+ActiveRecord::Schema.define(version: 2019_12_31_165121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "note_tags", force: :cascade do |t|
+    t.integer "note_id"
+    t.integer "tag_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "notes", force: :cascade do |t|
     t.string "content"
@@ -25,7 +32,6 @@ ActiveRecord::Schema.define(version: 2019_12_26_203850) do
 
   create_table "tags", force: :cascade do |t|
     t.string "content"
-    t.integer "note_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

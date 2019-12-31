@@ -1,4 +1,4 @@
-class UserSerializer
+class UserSerializer < ActiveModel::Serializer
 
   def initialize(user_obj)
     @user = user_obj
@@ -6,7 +6,7 @@ class UserSerializer
 
   def to_serialized_json
     @user.to_json(:include => {
-      :notes => {:except => [:user_id, :updated_at]}
+      :notes => {include: [tags: {only: [:content]}], :except => [:user_id, :updated_at]}
     },
     :except => [:created_at, :updated_at])
   end
