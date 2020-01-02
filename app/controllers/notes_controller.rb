@@ -16,8 +16,11 @@ class NotesController < ApplicationController
     end
 
     def update
+        puts params
         note = Note.find(params[:id])
-        note.update(params)
+        note.update(title: params[:title], content: params[:content])
+        tags = params[:tags]
+        createNoteTags(tags, params[:id])
         note.save
         render json: NoteSerializer.new(note).to_serialized_json
     end
@@ -27,4 +30,14 @@ class NotesController < ApplicationController
         note.destroy
         render json: NoteSerializer.new(note).to_serialized_json
     end
+
+    def createNoteTags(tags, id)  
+        tags.each {|tag| 
+            thistag =Tag.find_or_create_by(content: tag)
+            NoteTag.create(tag_id: thistag.id, note_id: id)
+        }
+    end
+
+
+    
 end

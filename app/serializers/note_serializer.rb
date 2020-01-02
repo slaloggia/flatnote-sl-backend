@@ -1,5 +1,5 @@
 class NoteSerializer < ActiveModel::Serializer
-  attributes :id, :title, :content
+  belongs_to :user
   has_many :note_tags
   has_many :tags, through: :note_tags
 
