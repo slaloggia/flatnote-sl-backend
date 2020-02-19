@@ -4,6 +4,6 @@ FactoryBot.define do
     end
 
     factory :random_user, class: User do
-        username {Faker::Name.first_name}
+        username {Faker::Lorem.unique.word}
     end
 end

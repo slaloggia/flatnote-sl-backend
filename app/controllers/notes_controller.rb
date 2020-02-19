@@ -18,9 +18,11 @@ class NotesController < ApplicationController
     def update
         puts params
         note = Note.find(params[:id])
-        note.update(title: params[:title], content: params[:content])
-        tags = params[:tags]
-        createNoteTags(tags, params[:id])
+        note.update(note_params)
+        if params[:tags]
+            tags = params[:tags]
+            createNoteTags(tags, params[:id])
+        end
         note.save
         render json: NoteSerializer.new(note).to_serialized_json
     end
@@ -38,6 +40,9 @@ class NotesController < ApplicationController
         }
     end
 
+    private
 
-    
+    def note_params
+        params.require(:note).permit(:title, :content, :tags)
+    end
 end
