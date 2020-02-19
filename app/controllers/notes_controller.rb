@@ -16,7 +16,6 @@ class NotesController < ApplicationController
     end
 
     def update
-        puts params
         note = Note.find(params[:id])
         note.update(note_params)
         if params[:tags]

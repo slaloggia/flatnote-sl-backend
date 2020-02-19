@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
     def show
         user = User.find_by(username: params[:username])
+        puts params
         render json: UserSerializer.new(user).to_serialized_json
     end
 

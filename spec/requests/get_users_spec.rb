@@ -12,11 +12,14 @@ describe "get all users route", :type => :request do
 end
 
 describe "GET /users/:id", :type => :request do
-    let!(:users) { FactoryBot.create_list(:random_user, 10)}
-    let(:user_id) { rand(1...10) }
-    before { get "/users/#{user_id}"}
+    before do
+        @user = create(:user)
+        @username = @user.username
+        get "/users/#{@username}"
+    end
 
     context "success" do
         it {expect(response).to have_http_status(:success)}
+        it {expect(JSON.parse(response.body)['id']).to eq(@user.id)}
     end
 end
