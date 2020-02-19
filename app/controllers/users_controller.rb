@@ -12,6 +12,10 @@ class UsersController < ApplicationController
 
     def create
         user = User.create(username: params[:username])
-        render json: UserSerializer.new(user).to_serialized_json
+        if user.valid?
+            render json: UserSerializer.new(user).to_serialized_json
+        else
+            return "Creation failed - username is taken"
+        end
     end
 end
