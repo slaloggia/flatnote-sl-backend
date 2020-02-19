@@ -1,6 +1,6 @@
 FactoryBot.define do
     factory :random_note, class: Note do
-        user_id { 1 }
+        association :user, factory: :random_user
         title { Faker::Lorem.sentence }
         content { Faker::Lorem.paragraph }
     end
