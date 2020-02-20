@@ -2,19 +2,18 @@ class UsersController < ApplicationController
 
     def index
         users = User.all
-        render json: UserSerializer.new(users).to_serialized_json
+        render json: users
     end
 
     def show
         user = User.find_by(username: params[:username])
-        puts params
-        render json: UserSerializer.new(user).to_serialized_json
+        render json: user
     end
 
     def create
         user = User.create(username: params[:username])
         if user.valid?
-            render json: UserSerializer.new(user).to_serialized_json
+            render json: user
         else
             return "Creation failed - username is taken"
         end

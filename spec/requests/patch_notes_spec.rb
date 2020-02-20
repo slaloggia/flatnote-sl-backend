@@ -3,18 +3,44 @@ require 'rails_helper'
 describe "PATCH /notes/:id" do
     before(:each) do
         @note = create(:random_note)
+        @starting_db_count = NoteTag.count
     end
 
-    it "updates an existing note title" do
-        @new_title = "Not random"
-        patch "/notes/#{@note.id}", params: { note: {title: @new_title} }
+    context "updates note title" do
 
-        expect(response).to have_http_status(:success)
+        it "updates an existing note title" do
+            @new_title = "Not random"
+            patch "/notes/#{@note.id}", params: { note: {title: @new_title} }
 
-        expect(Note.find(@note.id).title).to eq(@new_title)
+            expect(response).to have_http_status(:success)
+            expect(Note.find(@note.id).title).to eq(@new_title)
+            expect(Note.find(@note.id).content).to eq(@note.content)
 
-        expect(Note.find(@note.id).content).to eq(@note.content)
-
+        end
     end
+
+    context "updates note content" do
+        
+        it "updates an existing note content" do
+            @new_content = "This is not random"
+            patch "/notes/#{@note.id}", params: { note: {content: @new_content} } 
+
+            expect(response).to have_http_status(:success)
+            expect(Note.find(@note.id).title).to eq(@note.title)
+            expect(Note.find(@note.id).content).to eq(@new_content)
+
+        end
+    end
+
+
+    # context "adds tags" do
+        
+    #     it "creates instances of NoteTags" do
+    #         patch "/notes/#{@note.id}", params: {note: {tags: ["new", "test"]}} 
+
+    #         expect(response).to have_http_status(:success)
+    #         expect(NoteTag.count).to eq(@starting_db_count+2)
+    #     end
+    # end
 
 end
