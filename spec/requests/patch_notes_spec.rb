@@ -33,14 +33,14 @@ describe "PATCH /notes/:id" do
     end
 
 
-    # context "adds tags" do
+    context "createNoteTags adds tags to note" do
         
-    #     it "creates instances of NoteTags" do
-    #         patch "/notes/#{@note.id}", params: {note: {tags: ["new", "test"]}} 
+        it "creates instances of NoteTags" do
+            patch "/notes/#{@note.id}", params: {note: {tags: ["new", "test"]}} 
 
-    #         expect(response).to have_http_status(:success)
-    #         expect(NoteTag.count).to eq(@starting_db_count+2)
-    #     end
-    # end
+            expect(response).to have_http_status(:success)
+            expect(NoteTag.count).to eq(@starting_db_count+2)
+        end
+    end
 
 end

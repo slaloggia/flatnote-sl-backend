@@ -23,7 +23,7 @@ class NotesController < ApplicationController
             createNoteTags(tags, params[:id])
         end
         note.save
-        
+        puts json: note
         render json: note
     end
 
