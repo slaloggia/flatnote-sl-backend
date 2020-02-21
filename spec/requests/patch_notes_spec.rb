@@ -36,10 +36,16 @@ describe "PATCH /notes/:id" do
     context "createNoteTags adds tags to note" do
         
         it "creates instances of NoteTags" do
-            patch "/notes/#{@note.id}", params: {note: {tags: ["new", "test"]}} 
+            patch "/notes/#{@note.id}", params: {
+                note: {
+                    title: "Note with tags",
+                    tags: ["new", "test"]
+                }
+            } 
 
             expect(response).to have_http_status(:success)
             expect(NoteTag.count).to eq(@starting_db_count+2)
+            expect(Note.find(@note.id).tags).to include(Tag.find_by(content: "new"))
         end
     end
 

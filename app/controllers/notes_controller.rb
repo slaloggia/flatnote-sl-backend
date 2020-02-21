@@ -18,8 +18,9 @@ class NotesController < ApplicationController
     def update
         note = Note.find(params[:id])
         note.update(note_params.permit(:title, :content))
-        if params[:tags] 
-            tags = params[:tags]
+        puts params
+        if note_params[:tags] 
+            tags = note_params[:tags]
             createNoteTags(tags, params[:id])
         end
         note.save
@@ -35,7 +36,6 @@ class NotesController < ApplicationController
 
     def createNoteTags(tags, id) 
         if tags.length >0 
-            puts tags
             tags.each {|tag| 
                 thistag = Tag.find_or_create_by(content: tag)
                 NoteTag.create(tag_id: thistag.id, note_id: id)
