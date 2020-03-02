@@ -18,7 +18,7 @@ class NotesController < ApplicationController
     def update
         note = Note.find(params[:id])
         note.update(note_params.permit(:title, :content))
-        puts params
+        puts note_params
         if note_params[:tags] 
             tags = note_params[:tags]
             createNoteTags(tags, params[:id])
